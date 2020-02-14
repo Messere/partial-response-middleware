@@ -1,7 +1,7 @@
 {
   "name": "messere/partial-response-middleware",
-  "description": "filter out not needed fields from API response",
-  "version": "0.1.0",
+  "description": "Filter out not needed fields from API response.",
+  "version": "0.1.1",
   "type": "library",
   "keywords": [
     "filter",
@@ -34,15 +34,16 @@
   },
   "require": {
     "php": "^7.1",
-    "messere/php-value-mask": "^0.1.0",
+    "messere/php-value-mask": "^0.1.1",
     "psr/http-server-middleware": "^1.0",
-    "middlewares/utils": "^1.2"
+    "middlewares/utils": "^1.2",
+    "ext-json": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "^7.2",
+    "phpunit/phpunit": "^8.0",
     "squizlabs/php_codesniffer": "^3.3",
     "phpmd/phpmd": "^2.6",
-    "zendframework/zend-diactoros": "^1.8"
+    "laminas/laminas-diactoros": "^2.2"
   },
   "scripts": {
     "tests": [
