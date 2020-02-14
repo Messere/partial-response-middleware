@@ -26,7 +26,7 @@ class PartialResponse implements MiddlewareInterface
         if (stripos($response->getHeaderLine('Content-Type'), 'application/json') === 0) {
             $filterValue = $request->getQueryParams()[$this->queryFieldName] ?? '';
             if ('' !== $filterValue) {
-                $body = json_decode((string)$response->getBody());
+                $body = json_decode((string)$response->getBody(), false);
                 if ((\is_object($body) || \is_array($body)) && JSON_ERROR_NONE === json_last_error()) {
                     try {
                         $filter = (new Parser())->parse($filterValue);

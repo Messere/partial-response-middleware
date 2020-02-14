@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Google in their [Performance Tips](https://developers.google.com/discovery/v1/performance#partial) for
+Google in their [Performance Tips](https://cloud.google.com/storage/docs/json_api/v1/how-tos/performance#partial-response) for
 APIs, suggest to limit required bandwidth by filtering out unused fields in response. Their APIs 
 support additional URL parameter `fields` which asks API to include only specific fields in response.   
 
@@ -15,7 +15,7 @@ filtering syntax.
 
 ## Acknowledgements
 
-* Google's [API performance tips](https://developers.google.com/discovery/v1/performance#partial).
+* Google's [API performance tips](https://cloud.google.com/storage/docs/json_api/v1/how-tos/performance#partial-response).
 * Some helpers from [Middlewares](https://github.com/middlewares) projects were used
 
 ## License

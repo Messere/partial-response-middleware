@@ -12,18 +12,6 @@ class PartialResponseTest extends TestCase
     private const FILTER_NAME = 'myFilter';
     private const APPLICATION_JSON_CONTENT_TYPE = 'application/json;charset=utf-8';
 
-    private function runDispatcher(string $content, string $contentType, string $fieldName, array $query): ResponseInterface
-    {
-        return Dispatcher::run([
-            new PartialResponse($fieldName),
-            function () use ($content, $contentType) {
-                $response = Factory::createResponse();
-                $response->getBody()->write($content);
-                return $response->withHeader('Content-Type', $contentType);
-            },
-        ], Factory::createServerRequest([], 'GET', '/')->withQueryParams($query));
-    }
-
     public function testPartialResponseConvertsObjectResponse(): void
     {
         $response = $this->runDispatcher(
@@ -67,7 +55,7 @@ class PartialResponseTest extends TestCase
             'emptyFilter',
             ['emptyFilter' => '']
         );
-        $this->assertEquals([ 'a' => 1 ], (array)json_decode((string) $response->getBody()));
+        $this->assertEquals([ 'a' => 1 ], (array)json_decode((string) $response->getBody(), true));
     }
 
     public function testPartialResponseDoesNothingIfFilterMissing(): void
@@ -102,5 +90,21 @@ class PartialResponseTest extends TestCase
         );
         $this->assertEquals(400, $response->getStatusCode());
         $this->assertEquals('Invalid field selection a(', $response->getReasonPhrase());
+    }
+
+    private function runDispatcher(
+        string $content,
+        string $contentType,
+        string $fieldName,
+        array $query
+    ): ResponseInterface {
+        return Dispatcher::run([
+            new PartialResponse($fieldName),
+            static function () use ($content, $contentType) {
+                $response = Factory::createResponse();
+                $response->getBody()->write($content);
+                return $response->withHeader('Content-Type', $contentType);
+            },
+        ], Factory::createServerRequest([], 'GET', '/')->withQueryParams($query));
     }
 }
